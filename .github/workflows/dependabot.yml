@@ -1,0 +1,42 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+    open-pull-requests-limit: 10
+    versioning-strategy: 'auto'
+    labels:
+      - 'dependencies'
+      - 'automerge'
+    ignore:
+      - dependency-name: 'next'
+        versions: ['15.x']
+      - dependency-name: 'react'
+        versions: ['19.x']
+    groups:
+      dev-dependencies:
+        patterns:
+          - '@types/*'
+          - '@playwright/*'
+          - 'typescript'
+          - 'eslint*'
+        update-types:
+          - 'minor'
+          - 'patch'
+      production-dependencies:
+        patterns:
+          - '@hookform/*'
+          - 'zod'
+          - 'zustand'
+        update-types:
+          - 'patch'
+
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'monthly'
+    labels:
+      - 'ci-cd'
+      - 'dependencies'
