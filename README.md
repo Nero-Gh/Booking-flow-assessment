@@ -22,17 +22,17 @@ This project implements a 4-step booking flow for waste skip hire:
 
 ## Tech Stack
 
-| Category | Technology | Version |
-|----------|------------|---------|
-| Framework | Next.js (App Router) | 14.2.0 |
-| Language | TypeScript | 5.4.3 |
-| Styling | Tailwind CSS | ^4.0.0 |
-| State Management | Zustand | 4.5.2 |
-| Form Handling | React Hook Form | 7.51.0 |
-| Validation | Zod | 3.22.4 |
-| API Mocking | MSW | 2.2.13 |
-| E2E Testing | Playwright | 1.43.0 |
-| Icons | Lucide React | 0.363.0 |
+| Category         | Technology           | Version |
+| ---------------- | -------------------- | ------- |
+| Framework        | Next.js (App Router) | 14.2.0  |
+| Language         | TypeScript           | 5.4.3   |
+| Styling          | Tailwind CSS         | ^4.0.0  |
+| State Management | Zustand              | 4.5.2   |
+| Form Handling    | React Hook Form      | 7.51.0  |
+| Validation       | Zod                  | 3.22.4  |
+| API Mocking      | MSW                  | 2.2.13  |
+| E2E Testing      | Playwright           | 1.43.0  |
+| Icons            | Lucide React         | 0.363.0 |
 
 ## Project Structure
 
@@ -151,23 +151,25 @@ This project uses Mock Service Worker (MSW) to intercept API requests and return
 
 ### Deterministic Test Data
 
-| Postcode | Behavior | Expected Result |
-|----------|----------|-----------------|
-| SW1A 1AA | Success | Returns 12 addresses |
-| EC1A 1BB | Empty | Returns 0 addresses (empty state) |
-| M1 1AE | Latency | 3-second delay, then returns 3 addresses |
-| BS1 4DJ | Error/Retry | 500 error on first call, success on retry |
+| Postcode | Behavior    | Expected Result                           |
+| -------- | ----------- | ----------------------------------------- |
+| SW1A 1AA | Success     | Returns 12 addresses                      |
+| EC1A 1BB | Empty       | Returns 0 addresses (empty state)         |
+| M1 1AE   | Latency     | 3-second delay, then returns 3 addresses  |
+| BS1 4DJ  | Error/Retry | 500 error on first call, success on retry |
 
 ### API Endpoints
 
 #### `POST /api/postcode/lookup`
 
 **Request:**
+
 ```json
 { "postcode": "SW1A 1AA" }
 ```
 
 **Response:**
+
 ```json
 {
   "postcode": "SW1A 1AA",
@@ -180,6 +182,7 @@ This project uses Mock Service Worker (MSW) to intercept API requests and return
 #### `POST /api/waste-types`
 
 **Request:**
+
 ```json
 {
   "heavyWaste": true,
@@ -189,6 +192,7 @@ This project uses Mock Service Worker (MSW) to intercept API requests and return
 ```
 
 **Response:**
+
 ```json
 { "ok": true }
 ```
@@ -196,15 +200,16 @@ This project uses Mock Service Worker (MSW) to intercept API requests and return
 #### `GET /api/skips?postcode=SW1A1AA&heavyWaste=true`
 
 **Response:**
+
 ```json
 {
   "skips": [
-    { "size": "4-yard",  "price": 120, "disabled": false },
-    { "size": "6-yard",  "price": 150, "disabled": false },
-    { "size": "8-yard",  "price": 180, "disabled": false },
+    { "size": "4-yard", "price": 120, "disabled": false },
+    { "size": "6-yard", "price": 150, "disabled": false },
+    { "size": "8-yard", "price": 180, "disabled": false },
     { "size": "10-yard", "price": 220, "disabled": false },
-    { "size": "12-yard", "price": 260, "disabled": true  },
-    { "size": "14-yard", "price": 300, "disabled": true  },
+    { "size": "12-yard", "price": 260, "disabled": true },
+    { "size": "14-yard", "price": 300, "disabled": true },
     { "size": "16-yard", "price": 350, "disabled": false },
     { "size": "20-yard", "price": 420, "disabled": false }
   ]
@@ -214,6 +219,7 @@ This project uses Mock Service Worker (MSW) to intercept API requests and return
 #### `POST /api/booking/confirm`
 
 **Request:**
+
 ```json
 {
   "postcode": "SW1A 1AA",
@@ -226,6 +232,7 @@ This project uses Mock Service Worker (MSW) to intercept API requests and return
 ```
 
 **Response:**
+
 ```json
 {
   "status": "success",
@@ -267,10 +274,10 @@ npm run test:e2e:report
 
 ### Test Coverage
 
-| Test | Description |
-|------|-------------|
+| Test                                | Description                                     |
+| ----------------------------------- | ----------------------------------------------- |
 | `test-1-general-waste-flow.spec.ts` | Complete general waste flow with all assertions |
-| `test-2-heavy-waste-flow.spec.ts` | Heavy waste flow verifying disabled skips |
+| `test-2-heavy-waste-flow.spec.ts`   | Heavy waste flow verifying disabled skips       |
 
 ---
 
@@ -358,6 +365,7 @@ See `bug-reports.md` for documented issues.
 ### Screenshot Instructions
 
 **Mobile Screenshot**
+
 1. Open Chrome DevTools (F12)
 2. Click "Toggle Device Toolbar" (Ctrl+Shift+M)
 3. Select "iPhone 12" or "Pixel 5"
@@ -365,25 +373,30 @@ See `bug-reports.md` for documented issues.
 5. Take screenshot using DevTools camera icon
 
 **Desktop Screenshot**
+
 1. Ensure viewport is 1920x1080
 2. Navigate to desired page
 3. Take screenshot (Cmd+Shift+4 on Mac, Win+Shift+S on Windows)
 
 **Error State Screenshot**
+
 1. Enter postcode `BS1 4DJ`
 2. Wait for error message
 3. Capture screenshot showing error message and retry button
 
 **Retry State Screenshot**
+
 1. After error appears for `BS1 4DJ`, capture screenshot showing retry button
 2. Click retry and capture success state
 
 **Disabled Skip Screenshot**
+
 1. Select "Heavy Waste"
 2. Navigate to skip selection
 3. Capture screenshot showing 12-yard and 14-yard with disabled styling
 
 **Price Breakdown Screenshot**
+
 1. Complete flow to review page
 2. Capture screenshot showing skip price, VAT (20%), and total price
 
@@ -399,6 +412,7 @@ Record a 60–120 second video demonstrating:
 6. **Success** - Show confirmation with booking reference
 
 **Recording tools:**
+
 - macOS: QuickTime Player (File > New Screen Recording)
 - Windows: Xbox Game Bar (Win+G)
 - Browser: Loom or Screencastify extensions
@@ -407,33 +421,33 @@ Record a 60–120 second video demonstrating:
 
 ## QA Artifacts
 
-| Artifact | File | Description |
-|----------|------|-------------|
+| Artifact     | File              | Description                                                |
+| ------------ | ----------------- | ---------------------------------------------------------- |
 | Manual Tests | `manual-tests.md` | 55+ test cases covering positive, negative, and edge cases |
-| Bug Reports | `bug-reports.md` | Comprehensive bug reports with evidence |
-| E2E Tests | `automation/` | Playwright tests with Page Object Model |
-| Mock API | `src/mocks/` | MSW handlers with deterministic behavior |
+| Bug Reports  | `bug-reports.md`  | Comprehensive bug reports with evidence                    |
+| E2E Tests    | `automation/`     | Playwright tests with Page Object Model                    |
+| Mock API     | `src/mocks/`      | MSW handlers with deterministic behavior                   |
 
 ---
 
 ## Environment Variables
 
-| Variable | Value | Description |
-|----------|-------|-------------|
+| Variable                  | Value     | Description                       |
+| ------------------------- | --------- | --------------------------------- |
 | `NEXT_PUBLIC_API_MOCKING` | `enabled` | Enable MSW mocking in development |
 
 ---
 
 ## Browser Support
 
-| Browser | Version | Status |
-|---------|---------|--------|
-| Chrome | Latest | ✅ Fully supported |
-| Firefox | Latest | ✅ Fully supported |
-| Safari | Latest | ✅ Fully supported |
-| Edge | Latest | ✅ Fully supported |
-| Mobile Chrome | Latest | ✅ Fully supported |
-| Mobile Safari | Latest | ✅ Fully supported |
+| Browser       | Version | Status             |
+| ------------- | ------- | ------------------ |
+| Chrome        | Latest  | ✅ Fully supported |
+| Firefox       | Latest  | ✅ Fully supported |
+| Safari        | Latest  | ✅ Fully supported |
+| Edge          | Latest  | ✅ Fully supported |
+| Mobile Chrome | Latest  | ✅ Fully supported |
+| Mobile Safari | Latest  | ✅ Fully supported |
 
 ---
 
@@ -456,6 +470,7 @@ This is a QA assessment project. Please follow the existing patterns and add app
 ## License
 
 This project is created for QA assessment purposes.
+
 - Project overview and tech stack
 - Complete project structure
 - Setup and running instructions
@@ -465,5 +480,3 @@ This project is created for QA assessment purposes.
 - Testing strategy
 - UI evidence capture instructions (screenshots and video)
 - QA artifacts reference
-
-The full project is now complete with all required components!
